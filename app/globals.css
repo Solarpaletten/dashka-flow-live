@@ -1,0 +1,296 @@
+/**
+ * Solar Flow Live — globals.css v1.0
+ * Minimal, focused, dark-mode-aware.
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0f1115;
+  --surface: #1a1d24;
+  --surface-2: #242830;
+  --fg: #f0f3f8;
+  --fg-dim: #94a0b1;
+  --accent: #f59e0b;
+  --accent-strong: #f97316;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --border: #2d3340;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --surface-2: #f1f3f7;
+    --fg: #1a1d24;
+    --fg-dim: #5b6473;
+    --accent: #f59e0b;
+    --accent-strong: #ea580c;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --border: #e2e7ee;
+  }
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.subtitle {
+  margin-top: 0.4rem;
+  color: var(--fg-dim);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* Direction selector */
+.direction-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--fg-dim);
+}
+
+.direction-select {
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.direction-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Status indicator */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--fg-dim);
+  opacity: 0.5;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.status-dot.is-live {
+  background: var(--danger);
+  opacity: 1;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.7; }
+}
+
+.status-text {
+  font-variant: small-caps;
+}
+
+/* Live button */
+.live-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.2rem 2.8rem;
+  min-width: 18rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-family: inherit;
+}
+
+.live-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.live-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.live-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.live-btn-start {
+  background: var(--accent);
+  color: #1a1d24;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+}
+
+.live-btn-start:hover {
+  background: var(--accent-strong);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.45);
+  color: #fff;
+}
+
+.live-btn-stop {
+  background: var(--danger);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+.live-btn-starting {
+  background: var(--surface-2);
+  color: var(--fg-dim);
+  border: 1px solid var(--border);
+}
+
+.btn-icon {
+  font-size: 1.05em;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--fg-dim);
+  border-top-color: var(--fg);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Latency */
+.latency {
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Error banner */
+.error-banner {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Recent log */
+.recent {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.recent-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+  margin-bottom: 0.85rem;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.recent-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  animation: pairFadeIn 0.3s ease-out;
+}
+
+@keyframes pairFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.recent-source {
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  font-style: italic;
+}
+
+.recent-translated {
+  font-size: 0.95rem;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  color: var(--fg-dim);
+  font-size: 0.8rem;
+}
